@@ -3,6 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as morgan from 'morgan';
 import { AppModule } from './app.module';
+import job from './config/cron';
 
 const PORT = process.env.PORT || 8080;
 
@@ -32,6 +33,8 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, documentFactory, {
     swaggerOptions: { persistAuthorization: true },
   });
+
+  job.start();
 
   await app.listen(PORT);
   console.log(`\n\nServer is running on port ${PORT}\n\n`);
