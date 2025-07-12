@@ -34,7 +34,9 @@ async function bootstrap() {
     swaggerOptions: { persistAuthorization: true },
   });
 
-  job.start();
+  if (process.env.NODE_ENV === 'production') {
+    job.start();
+  }
 
   await app.listen(PORT);
   console.log(`\n\nServer is running on port ${PORT}\n\n`);
