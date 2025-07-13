@@ -49,7 +49,7 @@ export class PostLogEntryDto {
 
   @ApiProperty({
     description: 'Log date as ISO string',
-    example: '2025-07-10T12:34:56Z',
+    example: '2025-12-25',
   })
   @IsDateString()
   @IsNotEmpty()
