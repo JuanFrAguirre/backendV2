@@ -6,6 +6,7 @@ import { UserSchema } from 'src/schemas/users.schema';
 import { AppModule } from 'src/app.module';
 import { Product, ProductSchema } from 'src/schemas/products.schema';
 import { Meal, MealSchema } from 'src/schemas/meals.schema';
+import { Log, LogSchema } from 'src/schemas/logs.schema';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { Meal, MealSchema } from 'src/schemas/meals.schema';
       { name: User.name, schema: UserSchema },
       { name: Product.name, schema: ProductSchema },
       { name: Meal.name, schema: MealSchema },
+      { name: Log.name, schema: LogSchema },
     ]),
   ],
   providers: [SeederService],

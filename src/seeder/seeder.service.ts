@@ -8,6 +8,7 @@ import { SEED_MEALS, SEED_USERS } from './seed.data';
 import { Product } from 'src/schemas/products.schema';
 import { SEED_PRODUCTS } from './seed.data';
 import { Meal } from 'src/schemas/meals.schema';
+import { Log } from 'src/schemas/logs.schema';
 
 @Injectable()
 export class SeederService {
@@ -15,6 +16,7 @@ export class SeederService {
     @InjectModel(User.name) private userModel: Model<User>,
     @InjectModel(Product.name) private productModel: Model<Product>,
     @InjectModel(Meal.name) private mealModel: Model<Meal>,
+    @InjectModel(Log.name) private logModel: Model<Log>,
   ) {}
 
   async run() {
@@ -23,6 +25,7 @@ export class SeederService {
     await this.mealModel.deleteMany();
     await this.productModel.deleteMany();
     await this.userModel.deleteMany();
+    await this.logModel.deleteMany();
     console.log(chalk.red('DB wiped'));
 
     // Seeding users
