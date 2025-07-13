@@ -35,7 +35,7 @@ export class LogsController {
       throw new UnauthorizedException(
         'Provided user is not same as authorized',
       );
-    console.log({ BODY: postLogEntry });
+    console.log(JSON.stringify({ BODY: postLogEntry }, null, 2));
     return this.logsService.postLogEntry(postLogEntry);
   }
 
