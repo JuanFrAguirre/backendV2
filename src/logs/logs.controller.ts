@@ -65,19 +65,4 @@ export class LogsController {
     const { type } = deleteLogEntryDto;
     return this.logsService.deleteLogEntry(type, id);
   }
-
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.logsService.findOne(+id);
-  // }
-
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateLogDto: UpdateLogDto) {
-  //   return this.logsService.update(+id, updateLogDto);
-  // }
-
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.logsService.remove(+id);
-  // }
 }
