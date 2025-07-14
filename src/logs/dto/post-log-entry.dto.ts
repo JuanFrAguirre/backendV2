@@ -19,7 +19,7 @@ class LogProductDto {
   @IsNotEmpty()
   product: string;
 
-  @ApiProperty({ description: 'Quantity of product', example: 2 })
+  @ApiProperty({ description: 'Quantity of product', example: 250 })
   @IsNumber()
   quantity: number;
 }
@@ -33,7 +33,7 @@ class LogMealDto {
   @IsNotEmpty()
   meal: string;
 
-  @ApiProperty({ description: 'Quantity of meal', example: 1 })
+  @ApiProperty({ description: 'Quantity of meal', example: 100 })
   @IsNumber()
   quantity: number;
 }
