@@ -13,17 +13,17 @@ export class MealsService {
     return this.mealModel.create(createMealDto);
   }
 
-  findAll() {
+  findAll(userId: string) {
     return this.mealModel
-      .find()
+      .find({ user: userId })
       .sort({ createdAt: 'desc' })
       .populate('mealProducts.product')
       .lean();
   }
 
-  async findOne(id: string) {
+  async findOne(id: string, userId: string) {
     const existing = await this.mealModel
-      .findById(id)
+      .findOne({ _id: id, user: userId })
       .populate('mealProducts.product')
       .lean();
     if (!existing) throw new NotFoundException('Meal not found');

@@ -6,11 +6,13 @@ import {
   Param,
   Post,
   Put,
+  Req,
 } from '@nestjs/common';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { CreateMealDto } from './dto/create-meal.dto';
 import { UpdateMealDto } from './dto/update-meal.dto';
 import { MealsService } from './meals.service';
+import { RequestWithUser } from 'src/auth/auth.controller';
 
 @Controller('meals')
 @ApiBearerAuth()
@@ -23,13 +25,13 @@ export class MealsController {
   }
 
   @Get()
-  findAll() {
-    return this.mealsService.findAll();
+  findAll(@Req() req: RequestWithUser) {
+    return this.mealsService.findAll(req.user.sub);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.mealsService.findOne(id);
+  findOne(@Req() req: RequestWithUser, @Param('id') id: string) {
+    return this.mealsService.findOne(id, req.user.sub);
   }
 
   @Put(':id')
