@@ -39,12 +39,30 @@ export class LogsController {
     return this.logsService.postLogEntry(postLogEntry);
   }
 
-  @ApiQuery({ name: 'date', type: String, required: false })
+  @ApiQuery({ name: 'date', type: String, required: true })
   @Get()
   async findByDate(@Req() req: RequestWithUser, @Query('date') date: string) {
     const existing = await this.logsService.findByDate(req.user.sub, date);
     if (!existing)
       throw new NotFoundException('Log not found for this user/date');
+    return existing;
+  }
+
+  @ApiQuery({ name: 'startDate', type: String, required: true })
+  @ApiQuery({ name: 'endDate', type: String, required: true })
+  @Get('/range')
+  async findByDateRange(
+    @Req() req: RequestWithUser,
+    @Query('startDate') startDate: string,
+    @Query('endDate') endDate: string,
+  ) {
+    const existing = await this.logsService.findByRange(
+      req.user.sub,
+      startDate,
+      endDate,
+    );
+    if (!existing)
+      throw new NotFoundException('Log not found for this user/date range');
     return existing;
   }
 

@@ -54,4 +54,11 @@ export class AuthService {
     console.log(userInDB);
     return userInDB ?? null;
   }
+
+  async findSelfInfo(id: string) {
+    const userInDb = await this.userModel.findById(id);
+    if (!userInDb) throw new NotFoundException('User not found');
+    const { password: _password, ...userWithoutPassword } = userInDb.toObject();
+    return userWithoutPassword;
+  }
 }

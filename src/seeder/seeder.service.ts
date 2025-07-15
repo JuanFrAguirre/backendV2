@@ -22,24 +22,24 @@ export class SeederService {
   async run() {
     // Deleting all data
     console.log(chalk.yellow('Wiping DB...'));
-    await this.mealModel.deleteMany();
+    // await this.mealModel.deleteMany();
     await this.productModel.deleteMany();
-    await this.userModel.deleteMany();
-    await this.logModel.deleteMany();
+    // await this.userModel.deleteMany();
+    // await this.logModel.deleteMany();
     console.log(chalk.red('DB wiped'));
 
     // Seeding users
     console.log(chalk.yellow('Seeding users...'));
-    const users = await Promise.all(
-      SEED_USERS.map(async (u) => {
-        const password = await bcrypt.hash(u.password, 10);
-        return this.userModel.create({
-          ...u,
-          _id: u.id,
-          password,
-        });
-      }),
-    );
+    // const users = await Promise.all(
+    //   SEED_USERS.map(async (u) => {
+    //     const password = await bcrypt.hash(u.password, 10);
+    //     return this.userModel.create({
+    //       ...u,
+    //       _id: u.id,
+    //       password,
+    //     });
+    //   }),
+    // );
 
     // Seeding products
     console.log(chalk.yellow('Seeding products...'));
@@ -54,18 +54,18 @@ export class SeederService {
 
     // Seeding meals
     console.log(chalk.yellow('Seeding meals...'));
-    const meals = await Promise.all(
-      SEED_MEALS.map((m) =>
-        this.mealModel.create({
-          ...m,
-          _id: m.id,
-        }),
-      ),
-    );
+    // const meals = await Promise.all(
+    //   SEED_MEALS.map((m) =>
+    //     this.mealModel.create({
+    //       ...m,
+    //       _id: m.id,
+    //     }),
+    //   ),
+    // );
 
     // Seed results
     console.log(chalk.green(`Seeded ${products.length} products`));
-    console.log(chalk.green(`Seeded ${users.length} users`));
-    console.log(chalk.green(`Seeded ${meals.length} meals`));
+    // console.log(chalk.green(`Seeded ${users.length} users`));
+    // console.log(chalk.green(`Seeded ${meals.length} meals`));
   }
 }

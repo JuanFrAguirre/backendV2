@@ -516,6 +516,30 @@ export const SEED_PRODUCTS: Product[] = [
     presentationSize: 50,
     tags: 'aceitunas,verdes,rellenas,anchoa,hacendado',
   },
+  {
+    id: 'f5t292c0-ab99-4bk7-9abn-8c25ajsj4uu2',
+    title: 'Pan bocadillo (1 unidad)',
+    image:
+      'https://prod-mercadona.imgix.net/images/073a9cdb8b55c15d05791f3380e31b28.jpg',
+    calories: 263,
+    fats: 1.2,
+    carbs: 53,
+    protein: 9,
+    presentationSize: 130,
+    tags: 'pan,bocadillo,hacendado',
+  },
+  {
+    id: 'f5t292c0-bbbb-4bk7-aaaa-8c25ajsj4uu2',
+    title: 'Filetes pechuga de pollo extra tiernos',
+    image:
+      'https://prod-mercadona.imgix.net/images/a5bce045a26938d4a4ecf1fb1b25830c.jpg',
+    calories: 108,
+    fats: 1.3,
+    carbs: 0.7,
+    protein: 23.4,
+    presentationSize: 560,
+    tags: 'pollo,pechuga,hacendado,proteina',
+  },
 ];
 
 export const SEED_USERS = [
@@ -583,6 +607,17 @@ export const SEED_MEALS: MealCreateArgs[] = [
       {
         product: '20d28a8b-864f-44b2-8895-013769950176',
         quantity: 15,
+      },
+    ],
+  },
+  {
+    id: '997643d5-e07a-494f-a97e-c249024e4840',
+    title: 'Lomo embuchado x4',
+    user: '8c30a36b-6f8d-4ec6-9057-564ee9a4bdba',
+    mealProducts: [
+      {
+        product: 'f04e4f7e-7893-4c7f-a2a3-439f6b78e301',
+        quantity: 120,
       },
     ],
   },

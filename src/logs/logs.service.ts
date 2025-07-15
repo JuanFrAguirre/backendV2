@@ -34,6 +34,26 @@ export class LogsService {
     return existing;
   }
 
+  async findByRange(user: string, startDate: string, endDate: string) {
+    if (!user) throw new BadRequestException('User is required');
+    const existing = await this.logModel
+      .find({
+        user,
+        date: {
+          $gte: this.getDayStart(startDate),
+          $lte: this.getDayStart(endDate),
+        },
+      })
+      .populate({
+        path: 'logMeals.meal',
+        populate: { path: 'mealProducts.product', model: Product.name },
+      })
+      .populate('logProducts.product')
+      .lean()
+      .sort({ date: -1 });
+    return existing;
+  }
+
   async postLogEntry(postLogEntry: PostLogEntryDto) {
     const dateObj = this.getDayStart(postLogEntry.date);
     const log = await this.logModel.findOne({
