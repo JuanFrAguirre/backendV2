@@ -44,7 +44,12 @@ export class AuthService {
     if (!isPasswordValid) throw new BadRequestException('Invalid password');
     const payload = { sub: userInDB._id, email: userInDB.email };
     const token = await this.jwt.signAsync(payload);
-    return { token, sub: userInDB._id, email: userInDB.email };
+    return {
+      token,
+      sub: userInDB._id,
+      email: userInDB.email,
+      user: userInDB.toObject(),
+    };
   }
 
   async findOneByEmail(email: string) {
