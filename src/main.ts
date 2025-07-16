@@ -9,7 +9,12 @@ const PORT = process.env.PORT || 8080;
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.enableCors({ origin: 'http://localhost:3000' });
+  app.enableCors({
+    origin:
+      process.env.NODE_ENV === 'production'
+        ? [process.env.FRONTEND_PRODUCTION]
+        : [process.env.FRONTEND_DEVELOPMENT],
+  });
   app.use(
     morgan('dev', {
       stream: { write: (message: string) => console.log(message.trim()) },
