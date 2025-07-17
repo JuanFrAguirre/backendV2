@@ -40,7 +40,7 @@ export class LogsService {
         user,
         date: {
           $gte: this.getDayStart(startDate),
-          $lt: this.getDayStart(endDate),
+          $lte: this.getDayStart(endDate),
         },
       })
       .populate({
