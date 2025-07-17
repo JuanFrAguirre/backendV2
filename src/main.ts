@@ -9,21 +9,8 @@ const PORT = process.env.PORT || 8080;
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const devOrigin = process.env.FRONTEND_DEVELOPMENT || 'http://localhost:3000';
-  const prodOrigin =
-    process.env.FRONTEND_PRODUCTION || 'https://nutri-app-pro.vercel.app';
-  const allowedOrigins = [devOrigin, prodOrigin];
   app.enableCors({
-    origin: (
-      origin: string | undefined,
-      callback: (err: Error | null, allow?: boolean) => void,
-    ): void => {
-      if (!origin) return callback(null, true);
-      if (allowedOrigins.includes(origin)) {
-        return callback(null, true);
-      }
-      callback(new Error(`Origin ${origin} not allowed by CORS`));
-    },
+    origin: true,
     credentials: true,
   });
   app.use(
