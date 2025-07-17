@@ -14,10 +14,9 @@ import { Product } from 'src/schemas/products.schema';
 export class LogsService {
   constructor(@InjectModel(Log.name) private logModel: Model<Log>) {}
 
-  private getDayStart(date: string): Date {
-    const d = new Date(date);
-    d.setHours(0, 0, 0, 0);
-    return d;
+  private getDayStart(dateStr: string): Date {
+    const [year, month, day] = dateStr.split('-').map(Number);
+    return new Date(Date.UTC(year, month - 1, day, 0, 0, 0));
   }
 
   async findByDate(user: string, date: string) {
@@ -41,7 +40,7 @@ export class LogsService {
         user,
         date: {
           $gte: this.getDayStart(startDate),
-          $lte: this.getDayStart(endDate),
+          $lt: this.getDayStart(endDate),
         },
       })
       .populate({
