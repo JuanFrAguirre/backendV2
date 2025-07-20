@@ -9,10 +9,15 @@ import { Log } from '../schemas/logs.schema';
 import { PostLogEntryDto } from './dto/post-log-entry.dto';
 import { v4 as uuidv4 } from 'uuid';
 import { Product } from 'src/schemas/products.schema';
+import { Meal } from 'src/schemas/meals.schema';
 
 @Injectable()
 export class LogsService {
-  constructor(@InjectModel(Log.name) private logModel: Model<Log>) {}
+  constructor(
+    @InjectModel(Log.name) private logModel: Model<Log>,
+    @InjectModel(Product.name) private productModel: Model<Product>,
+    @InjectModel(Meal.name) private mealModel: Model<Meal>,
+  ) {}
 
   private getDayStart(dateStr: string): Date {
     const [year, month, day] = dateStr.split('-').map(Number);
@@ -24,11 +29,6 @@ export class LogsService {
     if (!date) throw new BadRequestException('Date is required');
     const existing = await this.logModel
       .findOne({ user, date: this.getDayStart(date) })
-      .populate({
-        path: 'logMeals.meal',
-        populate: { path: 'mealProducts.product', model: Product.name },
-      })
-      .populate('logProducts.product')
       .lean();
     return existing;
   }
@@ -43,11 +43,6 @@ export class LogsService {
           $lte: this.getDayStart(endDate),
         },
       })
-      .populate({
-        path: 'logMeals.meal',
-        populate: { path: 'mealProducts.product', model: Product.name },
-      })
-      .populate('logProducts.product')
       .lean()
       .sort({ date: -1 });
     return existing;
@@ -55,49 +50,59 @@ export class LogsService {
 
   async postLogEntry(postLogEntry: PostLogEntryDto) {
     const dateObj = this.getDayStart(postLogEntry.date);
-    const log = await this.logModel.findOne({
+    let log = await this.logModel.findOne({
       user: postLogEntry.user,
       date: dateObj,
     });
     if (!log) {
-      return this.logModel.create({
+      log = new this.logModel({
         user: postLogEntry.user,
         date: dateObj,
-        ...(postLogEntry.logProducts && {
-          logProducts: postLogEntry.logProducts,
-        }),
-        ...(postLogEntry.logMeals && { logMeals: postLogEntry.logMeals }),
+        logProducts: [],
+        logMeals: [],
       });
     }
+    // Ensure arrays exist
+    if (!log.logProducts) log.logProducts = [];
+    if (!log.logMeals) log.logMeals = [];
+    // Embed full product snapshots
     if (postLogEntry.logProducts) {
-      if (!log.logProducts) log.logProducts = [];
       for (const incoming of postLogEntry.logProducts) {
+        const productData = await this.productModel
+          .findById(incoming.product)
+          .lean();
+        if (!productData) throw new NotFoundException('Product not found');
         const existingProduct = log.logProducts.find(
-          (lp) => lp.product === incoming.product,
+          (lp) => lp.product._id === incoming.product,
         );
         if (existingProduct) {
           existingProduct.quantity += incoming.quantity;
         } else {
           log.logProducts.push({
             _id: uuidv4(),
-            product: incoming.product,
+            product: productData,
             quantity: incoming.quantity,
           });
         }
       }
     }
+    // Embed full meal snapshots
     if (postLogEntry.logMeals) {
-      if (!log.logMeals) log.logMeals = [];
       for (const incoming of postLogEntry.logMeals) {
+        const mealData = await this.mealModel
+          .findById(incoming.meal)
+          .populate('mealProducts.product')
+          .lean();
+        if (!mealData) throw new NotFoundException('Meal not found');
         const existingMeal = log.logMeals.find(
-          (lm) => lm.meal === incoming.meal,
+          (lm) => lm.meal._id === incoming.meal,
         );
         if (existingMeal) {
           existingMeal.quantity += incoming.quantity;
         } else {
           log.logMeals.push({
             _id: uuidv4(),
-            meal: incoming.meal,
+            meal: mealData,
             quantity: incoming.quantity,
           });
         }

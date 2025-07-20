@@ -2,13 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import * as bcrypt from 'bcryptjs';
 import chalk from 'chalk';
-import { Model, Types } from 'mongoose';
-import { User } from 'src/schemas/users.schema';
-import { SEED_MEALS, SEED_USERS } from './seed.data';
-import { Product } from 'src/schemas/products.schema';
-import { SEED_PRODUCTS } from './seed.data';
-import { Meal } from 'src/schemas/meals.schema';
+import { Model } from 'mongoose';
 import { Log } from 'src/schemas/logs.schema';
+import { Meal } from 'src/schemas/meals.schema';
+import { Product } from 'src/schemas/products.schema';
+import { User } from 'src/schemas/users.schema';
+import { SEED_MEALS, SEED_PRODUCTS, SEED_USERS } from './seed.data';
 
 @Injectable()
 export class SeederService {
@@ -25,7 +24,7 @@ export class SeederService {
     await this.mealModel.deleteMany();
     await this.productModel.deleteMany();
     await this.userModel.deleteMany();
-    // await this.logModel.deleteMany();
+    await this.logModel.deleteMany();
     console.log(chalk.red('DB wiped'));
 
     // Seeding users

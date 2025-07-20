@@ -10,11 +10,10 @@ class LogProduct {
   _id: string;
 
   @Prop({
-    type: MongooseSchema.Types.String,
-    ref: Product.name,
+    type: MongooseSchema.Types.Mixed,
     required: true,
   })
-  product: string;
+  product: Product;
 
   @Prop({ required: true })
   quantity: number;
@@ -29,11 +28,10 @@ class LogMeal {
   _id: string;
 
   @Prop({
-    type: MongooseSchema.Types.String,
-    ref: Meal.name,
+    type: MongooseSchema.Types.Mixed,
     required: true,
   })
-  meal: string;
+  meal: Meal;
 
   @Prop({ required: true })
   quantity: number;
