@@ -111,7 +111,7 @@ export const SEED_PRODUCTS: Product[] = [
   },
   {
     id: '436aecf4-97a8-4c04-a7be-569ddfc16268',
-    title: 'Relleno fajitas ultracongelado',
+    title: 'Relleno fajitas congelado',
     image:
       'https://prod-mercadona.imgix.net/images/616e77243843f37f7568ef21d1b4fd13.jpg',
     calories: 74,
@@ -254,14 +254,14 @@ export const SEED_PRODUCTS: Product[] = [
   },
   {
     id: '968880ef-150e-4e1f-9342-f0368267d64a',
-    title: 'Brocoli ultracongelado',
+    title: 'Brocoli congelado',
     image:
       'https://prod-mercadona.imgix.net/images/80c2a7b63c3d5981a3561925baa7c4ab.jpg',
     calories: 29,
     protein: 3,
     fats: 0.4,
     presentationSize: 1000,
-    tags: 'brocoli,verduras,vegetales,hacendado,congelados,ultracongelados',
+    tags: 'brocoli,verduras,vegetales,hacendado,congelados,congelado,ultracongelado',
     carbs: 1.8,
   },
   {
@@ -549,13 +549,15 @@ export const SEED_USERS = [
     firstName: 'Test',
     lastName: 'User1',
     password: 'JS4life?',
+    role: 'admin',
   },
   {
     id: '8c30a36b-44rr-4ec6-9057-564ee9a4bdba',
-    email: 'jf_aguirre@hotmail.com',
-    firstName: 'Juan',
+    email: 'juanfranciscoaguirre95@gmail.com',
+    firstName: 'Juan Francisco',
     lastName: 'Aguirre',
     password: 'ASDasd123?',
+    role: 'admin',
   },
 ];
 
@@ -602,11 +604,11 @@ export const SEED_MEALS: MealCreateArgs[] = [
       },
       {
         product: 'f04e4f7e-7893-4c7f-a2a3-439f6b78e301',
-        quantity: 40,
+        quantity: 37.5,
       },
       {
         product: '20d28a8b-864f-44b2-8895-013769950176',
-        quantity: 15,
+        quantity: 45,
       },
     ],
   },
@@ -617,7 +619,7 @@ export const SEED_MEALS: MealCreateArgs[] = [
     mealProducts: [
       {
         product: 'f04e4f7e-7893-4c7f-a2a3-439f6b78e301',
-        quantity: 120,
+        quantity: 150,
       },
     ],
   },
