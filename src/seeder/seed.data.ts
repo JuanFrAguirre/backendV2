@@ -15,7 +15,7 @@ export const SEED_PRODUCTS: Product[] = [
   },
   {
     id: '0616f573-074a-4ddb-a670-0b8d5371d5c8',
-    title: 'Mayonesa Light (1 cda.)',
+    title: 'Mayonesa Light (1 cda)',
     image:
       'https://prod-mercadona.imgix.net/images/5e0c902d69b4c16ed124e230a9ad62fc.jpg',
     calories: 294,
@@ -182,7 +182,7 @@ export const SEED_PRODUCTS: Product[] = [
   },
   {
     id: '5c719f15-c309-4208-939d-5b761fddf2af',
-    title: 'Pesto con albahaca (1 cdita.)',
+    title: 'Pesto con albahaca (1 cdita)',
     image:
       'https://prod-mercadona.imgix.net/images/0bb668dd6446fae242c2af59e4fa96a9.jpg',
     calories: 570,
@@ -278,9 +278,9 @@ export const SEED_PRODUCTS: Product[] = [
   },
   {
     id: '99bb1ba7-622a-40e5-a30a-04787ce3f8f3',
-    title: 'Aceite de girasol (1 cda.)',
+    title: 'Aceite de girasol (1 cda)',
     image:
-      'https://www.compraonline.alcampo.es/images-v3/37ea0506-72ec-4543-93c8-a77bb916ec12/ecebc6e1-32e4-45c9-b020-ba3a5be26ae6/1280x1280.webp',
+      'https://prod-mercadona.imgix.net/images/e6398afba1d032d2e1c0489fd727d2f6.jpg',
     calories: 900,
     protein: 0,
     fats: 100,
